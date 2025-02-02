@@ -29,7 +29,7 @@ def upload_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/data.json", methods=["GET"])
+@app.route("/quiz_data.json", methods=["GET"])
 def get_data():
     data = load_data()
     return jsonify(data), 200
