@@ -15,7 +15,7 @@
                     <span class="text-blue-600"><br>Alexa Quiz Data</span>
                 </h1>
                 <p class="mt-4 text-lg text-gray-600">
-                    Format Example: Term1&lt;ans&gt;Definition1
+                    Format Example: <br>Term&lt;ans&gt;Definition
                 </p>
             </div>
 
@@ -34,7 +34,7 @@
                 </button>
 
                 <div id="status" class="hidden p-4 rounded-lg"></div>
-                <a href="#tutorial" class="tutorial-link">Want to see how it works?</a>
+                <a href="#tutorial" class="tutorial-link">Learn how to export from Quizlet</a>
             </div>
         </div>
     </main>
@@ -117,12 +117,12 @@
         .video-container {
             display: flex;
             justify-content: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            padding: 1rem;
+            margin-top: 1rem;
         }
         .tutorial-video {
             border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.3), 0 8px 12px -2px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease-in-out;
             width: 70%;
             height: auto;
@@ -134,7 +134,6 @@
             display: block;
             text-align: center;
             color: #2563eb;
-            text-decoration: underline;
             margin-top: 1.5rem;
             font-size: 1.1rem;
         }
@@ -143,6 +142,10 @@
         }
     </style>
 
+    <h2 class="text-3xl font-bold text-center mt-8">
+        <span class="text-gray-900">Export your Quizlet </span>
+        <span class="text-blue-600">in Under 30 Seconds</span>
+    </h2>
     <div id="tutorial" class="video-container">
         <video class="tutorial-video" autoplay loop muted playsinline>
             <source src="Quizme_Tutorial.mp4" type="video/mp4">
