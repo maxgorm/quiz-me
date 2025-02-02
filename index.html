@@ -4,105 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexa Quiz Data Uploader</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Upload Custom Quiz Data</h2>
-        
-        <div class="tab-container">
-            <button class="tab-button active" onclick="switchTab('text')">Text Format</button>
-            <button class="tab-button" onclick="switchTab('json')">JSON Format</button>
-            <button class="tab-button" onclick="switchTab('quizlet')">Quizlet Link</button>
-        </div>
-
-        <div class="content-wrapper">
-            <div id="textTab" class="tab-content active">
-                <div class="format-example">
-                    Format Example:<br>
-                    Term1&lt;ans&gt;Definition1<br>
-                    Term2&lt;ans&gt;Definition2
-                </div>                
-                <textarea id="textInput" placeholder="Enter your terms and definitions..."></textarea>
+<body class="bg-gray-50">
+    <main class="flex min-h-screen flex-col items-center justify-center p-8">
+        <div class="w-full max-w-3xl space-y-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900">
+                    Convert your study materials into
+                    <span class="text-blue-600">Alexa Quiz Data</span>
+                </h1>
+                <p class="mt-4 text-lg text-gray-600">
+                    Format Example: Term1&lt;ans&gt;Definition1
+                </p>
             </div>
 
-            <div id="jsonTab" class="tab-content">
-                <textarea id="jsonInput" placeholder='{"terms": [{"term": "France", "definition": "Paris"}]}'></textarea>
-            </div>
+            <div class="space-y-4">
+                <textarea
+                    id="inputText"
+                    placeholder="Enter your terms and definitions..."
+                    class="w-full h-64 p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                ></textarea>
 
-            <div id="quizletTab" class="tab-content">
-                <div class="format-example">
-                    Paste your Quizlet set URL here.<br>
-                    Example: https://quizlet.com/your-set-id
-                </div>
-                <textarea id="quizletInput" placeholder="Enter your Quizlet set URL..."></textarea>
+                <button
+                    id="submitButton"
+                    class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                >
+                    Convert and Upload
+                </button>
+
+                <div id="status" class="hidden p-4 rounded-lg"></div>
             </div>
         </div>
+    </main>
 
-        <button onclick="uploadData()">Submit</button>
-        <p id="status" class="status"></p>
-    </div>
-
-    <script src="static/text_to_json.js"></script>
     <script>
-        function switchTab(tabName) {
-            // Update buttons
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.getElementById('inputText');
+            const submitButton = document.getElementById('submitButton');
+            
+            submitButton.addEventListener('click', handleSubmit);
+        });
 
-            // Update content
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
+        function convertTermsToJson(inputText) {
+            if (!inputText || typeof inputText !== 'string') {
+                throw new Error('Input must be a non-empty string');
+            }
+
+            const lines = inputText.split('\n').filter(line => line.trim());
+            const terms = lines.map(line => {
+                const [term, definition] = line.split('<ans>');
+                if (!term || !definition) {
+                    throw new Error(`Invalid format in line: ${line}`);
+                }
+                return {
+                    term: term.trim(),
+                    definition: definition.trim()
+                };
             });
-            document.getElementById(`${tabName}Tab`).classList.add('active');
+
+            return {
+                terms: terms
+            };
         }
 
         function setStatus(message, isError = false) {
-            const statusElement = document.getElementById("status");
-            statusElement.innerText = message;
-            statusElement.className = `status ${isError ? 'error' : 'success'}`;
+            const statusElement = document.getElementById('status');
+            statusElement.textContent = message;
+            statusElement.className = `p-4 rounded-lg ${isError ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`;
+            statusElement.classList.remove('hidden');
         }
 
-        function uploadData() {
-            let jsonData;
-            const activeTab = document.querySelector('.tab-content.active').id;
+        async function handleSubmit() {
+            const textarea = document.getElementById('inputText');
+            const inputText = textarea.value.trim();
+            
+            if (!inputText) {
+                setStatus('Please enter some text', true);
+                return;
+            }
 
             try {
-                if (activeTab === 'jsonTab') {
-                    const inputText = document.getElementById("jsonInput").value;
-                    jsonData = JSON.parse(inputText);
-                } else if (activeTab === 'textTab') {
-                    const inputText = document.getElementById("textInput").value;
-                    jsonData = convertTermsToJson(inputText);
-                } else if (activeTab === 'quizletTab') {
-                    setStatus("Quizlet integration coming soon!", true);
-                    return;
-                }
-
+                console.log('Input text:', inputText);
+                const jsonData = convertTermsToJson(inputText);
                 const API_URL = 'https://quiz-me-api.onrender.com';
-                // Send data directly to our server
-                fetch(`${API_URL}/upload`, {
+                
+                const response = await fetch(`${API_URL}/upload`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(jsonData)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(err => {
-                            throw new Error(err.error || 'Upload failed');
-                        });
-                    }
-                    setStatus("Data successfully uploaded!");
-                })
-                .catch(error => {
-                    setStatus("Failed to upload data: " + error.message, true);
                 });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Upload failed');
+                }
+
+                setStatus("Data successfully uploaded!");
             } catch (error) {
-                setStatus("Error processing input: " + error.message, true);
+                setStatus(error.message, true);
             }
         }
     </script>
