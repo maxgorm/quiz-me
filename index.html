@@ -34,6 +34,7 @@
                 </button>
 
                 <div id="status" class="hidden p-4 rounded-lg"></div>
+                <a href="#tutorial" class="tutorial-link">Want to see how it works?</a>
             </div>
         </div>
     </main>
@@ -108,5 +109,45 @@
             }
         }
     </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        .tutorial-video {
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out;
+            width: 70%;
+            height: auto;
+        }
+        .tutorial-video:hover {
+            transform: translateY(-4px);
+        }
+        .tutorial-link {
+            display: block;
+            text-align: center;
+            color: #2563eb;
+            text-decoration: underline;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .tutorial-link:hover {
+            color: #1d4ed8;
+        }
+    </style>
+
+    <div id="tutorial" class="video-container">
+        <video class="tutorial-video" autoplay loop muted playsinline>
+            <source src="Quizme_Tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 </body>
 </html>
