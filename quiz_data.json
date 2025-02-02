@@ -1,244 +1,140 @@
 {
   "terms": [
     {
-      "term": "United States of America",
-      "definition": "Washington D.C."
+      "term": "1",
+      "definition": "Hamilton"
     },
     {
-      "term": "Germany",
-      "definition": "Berlin"
+      "term": "2",
+      "definition": "Miami"
     },
     {
-      "term": "Australia",
-      "definition": "Canberra"
+      "term": "3",
+      "definition": "Yale"
     },
     {
-      "term": "China",
-      "definition": "Beijing"
+      "term": "4",
+      "definition": "Peninsular (UM)"
     },
     {
-      "term": "Japan",
-      "definition": "Tokyo"
+      "term": "5",
+      "definition": "Rochester"
     },
     {
-      "term": "Russia",
-      "definition": "Moscow"
+      "term": "6",
+      "definition": "Alabama"
     },
     {
-      "term": "South Africa",
-      "definition": "Pretoria, Cape Town, and Bloemfontein"
+      "term": "7",
+      "definition": "Virginia"
     },
     {
-      "term": "Mexico",
-      "definition": "Mexico City"
+      "term": "8",
+      "definition": "Kenyon"
     },
     {
-      "term": "Peru",
-      "definition": "Lima"
+      "term": "9",
+      "definition": "Union"
     },
     {
-      "term": "Israel",
-      "definition": "Jerusalem"
+      "term": "10",
+      "definition": "Cornell"
     },
     {
-      "term": "England",
-      "definition": "London"
+      "term": "11",
+      "definition": "Phi Kappa"
     },
     {
-      "term": "Italy",
-      "definition": "Rome"
+      "term": "12",
+      "definition": "Johns Hopkins"
     },
     {
-      "term": "France",
-      "definition": "Paris"
+      "term": "13",
+      "definition": "Minnesota"
     },
     {
-      "term": "Spain",
-      "definition": "Madrid"
+      "term": "14",
+      "definition": "Toronto (Canada)"
     },
     {
-      "term": "Egypt",
-      "definition": "Cario"
+      "term": "15",
+      "definition": "Chicago"
     },
     {
-      "term": "Canada",
-      "definition": "Ottawa"
+      "term": "16",
+      "definition": "Memorial"
     },
     {
-      "term": "South Korea",
-      "definition": "Seoul"
+      "term": "17",
+      "definition": "Wisconsin"
     },
     {
-      "term": "Brasil",
-      "definition": "Bras\u00edlia"
+      "term": "18",
+      "definition": "California"
     },
     {
-      "term": "Panama",
-      "definition": "Panama City"
+      "term": "19",
+      "definition": "Illinois"
     },
     {
-      "term": "Chile",
-      "definition": "Santiago"
+      "term": "20",
+      "definition": "Washington"
     },
     {
-      "term": "Greece",
-      "definition": "Athens"
+      "term": "21",
+      "definition": "British Columbia (Canada)"
     },
     {
-      "term": "Portugal",
-      "definition": "Lisbon"
+      "term": "22",
+      "definition": "Lambda Phi"
     },
     {
-      "term": "Argentina",
-      "definition": "Buenos Aires"
+      "term": "23",
+      "definition": "Massachusetts"
     },
     {
-      "term": "Switzerland",
-      "definition": "Bern"
+      "term": "24",
+      "definition": "Adelpho"
     },
     {
-      "term": "India",
-      "definition": "New Delhi"
+      "term": "25",
+      "definition": "Nittany"
     },
     {
-      "term": "Vietnam",
-      "definition": "Hanoi"
+      "term": "26",
+      "definition": "Nu Epsilon Zeta"
     },
     {
-      "term": "Austria",
-      "definition": "Vienna"
+      "term": "27",
+      "definition": "Middlesex"
     },
     {
-      "term": "Hungary",
-      "definition": "Budapest"
+      "term": "28",
+      "definition": "Delta Phi Alpha"
     },
     {
-      "term": "Lebanon",
-      "definition": "Beirut"
+      "term": "29",
+      "definition": "Connecticut"
     },
     {
-      "term": "Indonesia",
-      "definition": "Jakarta"
+      "term": "30",
+      "definition": "Florida State"
     },
     {
-      "term": "Turkey",
-      "definition": "Ankara"
+      "term": "31",
+      "definition": "Rutgers"
     },
     {
-      "term": "Poland",
-      "definition": "Warsaw"
+      "term": "32",
+      "definition": "Maryland"
     },
     {
-      "term": "Iran",
-      "definition": "Tehran"
+      "term": "33",
+      "definition": "Eliot"
     },
     {
-      "term": "Malaysia",
-      "definition": "Kuala Lumpur"
-    },
-    {
-      "term": "Singapore",
-      "definition": "Singapore"
-    },
-    {
-      "term": "Philippines",
-      "definition": "Manila"
-    },
-    {
-      "term": "Guatemala",
-      "definition": "Guatemala City"
-    },
-    {
-      "term": "Taiwan",
-      "definition": "Taipei"
-    },
-    {
-      "term": "Romania",
-      "definition": "Bucharest"
-    },
-    {
-      "term": "Ukraine",
-      "definition": "Kiev"
-    },
-    {
-      "term": "Belgium",
-      "definition": "Brussels"
-    },
-    {
-      "term": "Finland",
-      "definition": "Helsinki"
-    },
-    {
-      "term": "Saudi Arabia",
-      "definition": "Riyadh"
-    },
-    {
-      "term": "Colombia",
-      "definition": "Bogot\u00e1"
-    },
-    {
-      "term": "Venezuela",
-      "definition": "Caracas"
-    },
-    {
-      "term": "Ireland",
-      "definition": "Dublin"
-    },
-    {
-      "term": "Cambodia",
-      "definition": "Phnom Penh"
-    },
-    {
-      "term": "Bangladesh",
-      "definition": "Dhaka"
-    },
-    {
-      "term": "New Zealand",
-      "definition": "Wellington"
-    },
-    {
-      "term": "Cuba",
-      "definition": "Havana"
-    },
-    {
-      "term": "Nepal",
-      "definition": "Kathmandu"
-    },
-    {
-      "term": "Pakistan",
-      "definition": "Islamabad"
-    },
-    {
-      "term": "Iraq",
-      "definition": "Baghdad"
-    },
-    {
-      "term": "Luxembourg",
-      "definition": "Luxembourg City"
-    },
-    {
-      "term": "Czech Republic",
-      "definition": "Prague"
-    },
-    {
-      "term": "Kenya",
-      "definition": "Nairobi"
-    },
-    {
-      "term": "Madagascar",
-      "definition": "Antananarivo"
-    },
-    {
-      "term": "Papua New Guinea",
-      "definition": "Port Moresby"
-    },
-    {
-      "term": "Tunisia",
-      "definition": "Tunis"
-    },
-    {
-      "term": "Sri Lanka",
-      "definition": "Colombo,Sri Jayawardenepura Kotte"
+      "term": "34",
+      "definition": "Rochy Mountain Chapter"
     }
   ]
 }

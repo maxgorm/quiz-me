@@ -81,16 +81,29 @@
                     return;
                 }
 
-                fetch("https://8499-35-21-191-163.ngrok-free.app/upload", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(jsonData),
+                // First, get the current file's SHA
+                fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json")
+                .then(response => response.json())
+                .then(data => {
+                    // Now update the file with the new content
+                    return fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
+                        method: "PUT",
+                        headers: { 
+                            "Authorization": "Bearer YOUR_GITHUB_TOKEN",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            message: "Update quiz data via web interface",
+                            content: btoa(JSON.stringify(jsonData, null, 2)),
+                            sha: data.sha
+                        })
+                    });
                 })
                 .then(response => {
                     if (response.ok) {
-                        setStatus("Data successfully uploaded!");
+                        setStatus("Data successfully uploaded! The changes will be visible in a few minutes.");
                     } else {
-                        throw new Error("Server error");
+                        throw new Error("Failed to update file on GitHub");
                     }
                 })
                 .catch(error => {
