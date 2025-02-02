@@ -85,7 +85,7 @@
                 // First, get the current file's SHA
                 fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
                     headers: {
-                        "Authorization": `token ${window.GITHUB_TOKEN}`,
+                        "Authorization": `Bearer ${window.GITHUB_TOKEN}`,
                         "Accept": "application/vnd.github.v3+json"
                     }
                 })
@@ -100,7 +100,7 @@
                     return fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
                         method: "PUT",
                         headers: {
-                            "Authorization": `token ${window.GITHUB_TOKEN}`,
+                            "Authorization": `Bearer ${window.GITHUB_TOKEN}`,
                             "Accept": "application/vnd.github.v3+json",
                             "Content-Type": "application/json",
                         },
