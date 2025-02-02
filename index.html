@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexa Quiz Data Uploader</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Custom Quiz Data</h2>
+        
+        <div class="tab-container">
+            <button class="tab-button active" onclick="switchTab('text')">Text Format</button>
+            <button class="tab-button" onclick="switchTab('json')">JSON Format</button>
+            <button class="tab-button" onclick="switchTab('quizlet')">Quizlet Link</button>
+        </div>
+
+        <div class="content-wrapper">
+            <div id="textTab" class="tab-content active">
+                <div class="format-example">
+                    Format Example:<br>
+                    Term1&lt;ans&gt;Definition1<br>
+                    Term2&lt;ans&gt;Definition2
+                </div>                
+                <textarea id="textInput" placeholder="Enter your terms and definitions..."></textarea>
+            </div>
+
+            <div id="jsonTab" class="tab-content">
+                <textarea id="jsonInput" placeholder='{"terms": [{"term": "France", "definition": "Paris"}]}'></textarea>
+            </div>
+
+            <div id="quizletTab" class="tab-content">
+                <div class="format-example">
+                    Paste your Quizlet set URL here.<br>
+                    Example: https://quizlet.com/your-set-id
+                </div>
+                <textarea id="quizletInput" placeholder="Enter your Quizlet set URL..."></textarea>
+            </div>
+        </div>
+
+        <button onclick="uploadData()">Submit</button>
+        <p id="status" class="status"></p>
+    </div>
+
+    <script src="/static/text_to_json.js"></script>
+    <script>
+        function switchTab(tabName) {
+            // Update buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+
+        function setStatus(message, isError = false) {
+            const statusElement = document.getElementById("status");
+            statusElement.innerText = message;
+            statusElement.className = `status ${isError ? 'error' : 'success'}`;
+        }
+
+        function uploadData() {
+            let jsonData;
+            const activeTab = document.querySelector('.tab-content.active').id;
+
+            try {
+                if (activeTab === 'jsonTab') {
+                    const inputText = document.getElementById("jsonInput").value;
+                    jsonData = JSON.parse(inputText);
+                } else if (activeTab === 'textTab') {
+                    const inputText = document.getElementById("textInput").value;
+                    jsonData = convertTermsToJson(inputText);
+                } else if (activeTab === 'quizletTab') {
+                    setStatus("Quizlet integration coming soon!", true);
+                    return;
+                }
+
+                fetch("https://8499-35-21-191-163.ngrok-free.app/upload", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(jsonData),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        setStatus("Data successfully uploaded!");
+                    } else {
+                        throw new Error("Server error");
+                    }
+                })
+                .catch(error => {
+                    setStatus("Failed to upload data: " + error.message, true);
+                });
+            } catch (error) {
+                setStatus("Error processing input: " + error.message, true);
+            }
+        }
+    </script>
+</body>
+</html>
