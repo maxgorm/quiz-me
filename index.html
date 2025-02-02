@@ -81,30 +81,48 @@
                     return;
                 }
 
+                const token = prompt("Please enter your GitHub token to save changes:");
+                if (!token) {
+                    setStatus("Token is required to save changes", true);
+                    return;
+                }
+
                 // First, get the current file's SHA
-                fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json")
-                .then(response => response.json())
+                fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     // Now update the file with the new content
                     return fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
                         method: "PUT",
-                        headers: { 
-                            "Authorization": "Bearer YOUR_GITHUB_TOKEN",
+                        headers: {
+                            "Authorization": `token ${token}`,
+                            "Accept": "application/vnd.github.v3+json",
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
                             message: "Update quiz data via web interface",
-                            content: btoa(JSON.stringify(jsonData, null, 2)),
+                            content: btoa(unescape(encodeURIComponent(JSON.stringify(jsonData, null, 2)))),
                             sha: data.sha
                         })
                     });
                 })
                 .then(response => {
-                    if (response.ok) {
-                        setStatus("Data successfully uploaded! The changes will be visible in a few minutes.");
-                    } else {
-                        throw new Error("Failed to update file on GitHub");
+                    if (!response.ok) {
+                        return response.json().then(err => {
+                            throw new Error(`GitHub API error: ${err.message || response.status}`);
+                        });
                     }
+                    setStatus("Data successfully uploaded! The changes will be visible in a few minutes.");
                 })
                 .catch(error => {
                     setStatus("Failed to upload data: " + error.message, true);
