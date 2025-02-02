@@ -43,6 +43,7 @@
         <p id="status" class="status"></p>
     </div>
 
+    <script src="config.js"></script>
     <script src="static/text_to_json.js"></script>
     <script>
         function switchTab(tabName) {
@@ -81,16 +82,10 @@
                     return;
                 }
 
-                const token = prompt("Please enter your GitHub token to save changes:");
-                if (!token) {
-                    setStatus("Token is required to save changes", true);
-                    return;
-                }
-
                 // First, get the current file's SHA
                 fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
                     headers: {
-                        "Authorization": `token ${token}`,
+                        "Authorization": `token ${GITHUB_TOKEN}`,
                         "Accept": "application/vnd.github.v3+json"
                     }
                 })
@@ -105,7 +100,7 @@
                     return fetch("https://api.github.com/repos/maxgorm/quiz-me/contents/quiz_data.json", {
                         method: "PUT",
                         headers: {
-                            "Authorization": `token ${token}`,
+                            "Authorization": `token ${GITHUB_TOKEN}`,
                             "Accept": "application/vnd.github.v3+json",
                             "Content-Type": "application/json",
                         },
