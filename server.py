@@ -6,7 +6,18 @@ import json
 app = Flask(__name__)
 CORS(app)  # Allow frontend requests
 
-data_store = "quiz_data.json"
+# Use environment variables for configuration
+PORT = int(os.environ.get("PORT", 10000))
+DATA_DIR = os.environ.get("DATA_DIR", "/tmp")
+data_store = os.path.join(DATA_DIR, "quiz_data.json")
+
+# Ensure data directory exists
+os.makedirs(DATA_DIR, exist_ok=True)
+
+# Create empty quiz_data.json if it doesn't exist
+if not os.path.exists(data_store):
+    with open(data_store, "w") as f:
+        json.dump({"terms": []}, f)
 
 def load_data():
     if os.path.exists(data_store):
@@ -45,4 +56,4 @@ def serve_index():
 if __name__ == "__main__":
     # Create static directory if it doesn't exist
     os.makedirs("static", exist_ok=True)
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=False)

@@ -81,8 +81,9 @@
                     return;
                 }
 
+                const API_URL = 'https://quiz-me-api.onrender.com';
                 // Send data directly to our server
-                fetch("/upload", {
+                fetch(`${API_URL}/upload`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
